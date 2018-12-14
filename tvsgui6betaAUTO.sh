@@ -43,11 +43,10 @@ echo writing helpscript... && cat >/usr/local/bin/helptvsgui<<-EOM
 
 ver=v6
 
-clear && clear && clear && toilet tvs gui --metal && toilet $ver && 
+clear && clear && clear && toilet tvs gui --metal 
 echo Usage:
 echo tvsgui - start server
 echo killtvsgui - kill server
-echo infotvsgui - info
 echo helptvsgui - help
 echo confatvs - conf part a
 echo confbtvs - conf part b
