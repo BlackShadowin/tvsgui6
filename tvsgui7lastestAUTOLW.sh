@@ -7,8 +7,6 @@ ver=v7
 clear
  clear
  clear
-toilet tvsgui --metal
- toilet $ver --metal 
  echo tvsgui $ver by valerik_228 
 USER=vnc vncserver -geometry 1920x1080 :1 
 clear
