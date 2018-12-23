@@ -46,7 +46,7 @@ echo writing killscript... && cat >/usr/local/bin/killtvsgui<<-EOM
 
 ver=v6
 
-clear && clear && clear && USER=vnc vncserver -kill :1 && toilet && clear && server --metal && toilet down --metal
+clear && clear && clear && USER=vnc vncserver -kill :1 &&  clear && server --metal && toilet down --metal
 
 EOM
 
