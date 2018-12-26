@@ -1,36 +1,43 @@
 #!/bin/bash
 
+mkdir /usr/local/
+mkdir /usr/local/bin/
+
 #пишем скрипты
 
 echo writing launchscript... && cat >/usr/local/bin/tvsgui<<-EOM
 ver=v7
-clear
+ clear
  clear
  clear
 toilet tvsgui --metal
- echo tvsgui $ver by valerik_228 
+echo tvsgui v7 by valerik_228
+splash start
+exec &> /dev/null 
 USER=vnc vncserver -geometry 1920x1080 :1 
-clear
- USER=vnc DISPLAY=:1 lxpanel & 
-clear
-USER=vnc DISPLAY=:1 openbox &
-clear
-USER=vnc  DISPLAY=:1 pcmanfm &
-clear
-USER=vnc  DISPLAY=:1 xterm &
-clear
-toilet server --metal 
-toilet started --metal 
- echo tvsgui $ver by valerik_228
+USER=vnc DISPLAY=:1 lxpanel &  
+USER=vnc DISPLAY=:1 openbox & 
+USER=vnc  DISPLAY=:1 pcmanfm & 
+USER=vnc  DISPLAY=:1 xterm & 
+
 
 EOM
+stop1='$stop'
+
+catstop='$(cat /root/.vnc/localhost:1.pid)'
 
 echo writing killscript... && cat >/usr/local/bin/killtvsgui<<-EOM
-#!/bin/bash
 
-ver=v6
+ver=v7
+exec 6> /dev/null
+clear && clear && clear
+cd /	
+stop=$catstop
 
-clear && clear && clear && USER=vnc vncserver -kill :1 && clear && server --metal && toilet down --metal
+echo '*ERROR*: can not find server. server start?'
+toilet *ERROR* --metal
+kill $stop1 && clear &&  splash stop
+
 
 EOM
 
@@ -94,9 +101,43 @@ confbtvs
 
 EOM
 
+one='$1'
+
+echo writing splashscript... && cat >/usr/local/bin/splash<<-EOM
+
+case $one in
+start) toilet server --metal
+toilet started --metal
+echo tvsgui v7 by valerik_228
+;;
+stop) toilet server --metal
+toilet down --metal
+;;
+*) toilet sPlAsH --gay
+esac
+
+
+EOM
+
+echo writing updaterscript...
+cat >/usr/local/bin/updatetvsgui<<-EOM
+
+rm -r ./tvsgui6/
+git clone https://github.com/tvsclass/tvsgui6/
+cd ./tvsgui6
+chmod +x ./tvsgui6/tvsgui7lastest.sh
+./tvsgui6/tvsgui7lastest.sh update
+
+EOM
+
+
 #Делаем файлы исполняемыми
 
 chmod +x /usr/local/bin/confbtvs
+
+chmod +x /usr/local/bin/updatetvsgui
+
+chmod +x /usr/local/bin/splash
 
 chmod +x /usr/local/bin/confatvs
 
@@ -109,5 +150,7 @@ chmod +x /usr/local/bin/infotvsgui
 chmod +x /usr/local/bin/helptvsgui
 
 chmod +x /usr/local/bin/confalw
+
+clear
 
 confatvs
