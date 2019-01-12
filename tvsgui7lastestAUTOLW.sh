@@ -83,7 +83,7 @@ helptvsgui
 EOM
 
 echo writing conflwscript... && cat >/usr/local/bin/confalw<<-EOM
-apt install lxpanel xterm openbox tightvscserver nano toilet pcmanfm
+apt install lxpanel xterm openbox tightvncserver nano toilet pcmanfm
 
 clear
 
